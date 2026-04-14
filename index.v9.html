@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Visit Fast </title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --primary: #ffeb3b;
+  --secondary: #f59e0b;
+  --bg-dark: #000000;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+body {
+  font-family: 'Hind Siliguri', sans-serif;
+  margin: 0; padding: 0;
+  background: var(--bg-dark); color: #ffffff;
+  overflow-x: hidden;
+}
+
+.main-container { max-width: 600px; margin: 0 auto; padding: 10px 15px 100px 15px; text-align: center; }
+
+/* ৪টি অ্যাড স্লট */
+.ad-container { margin: 15px 0; display: flex; flex-direction: column; gap: 10px; align-items: center; width: 100%; }
+.ad-unit { min-height: 50px; width: 320px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+
+.fixed-back-btn {
+  display: none; position: fixed; top: 20px; left: 20px; z-index: 9999;
+  background: linear-gradient(45deg, #ff4757, #ff6b81);
+  color: white; border: none; padding: 12px 20px; border-radius: 15px;
+  font-weight: bold; cursor: pointer; box-shadow: 0 5px 20px rgba(255, 71, 87, 0.5);
+}
+
+.button-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px; }
+.tab-btn {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #000; font-weight: 700; aspect-ratio: 1/1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 15px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.3);
+  text-decoration: none; cursor: pointer; transition: 0.3s;
+}
+
+.section { display: none; width: 100%; animation: fadeInUp 0.5s ease-out; }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+.search-input {
+  width: 100%; padding: 15px; border-radius: 15px; border: 2px solid var(--primary);
+  background: #111; color: white; outline: none; margin-bottom: 20px;
+}
+
+.item-card { 
+  background: rgba(255,255,255,0.07); padding: 15px; border-radius: 20px; 
+  border: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px; text-align: left;
+}
+.item-img { width: 100%; border-radius: 15px; border: 1px solid var(--primary); margin-bottom: 12px; }
+.id-tag { background: var(--primary); color: #000; padding: 4px 10px; border-radius: 6px; font-weight: bold; font-size: 12px; margin-bottom: 8px; display: inline-block; }
+
+.download-btn { 
+  display: block; background: #3b82f6; color: white; text-align: center; 
+  padding: 14px; border-radius: 12px; text-decoration: none; font-weight: bold; 
+  cursor: pointer; border: none; width: 100%; font-size: 15px;
+}
+.unlocked { background: #10b981 !important; box-shadow: 0 0 15px rgba(16, 185, 129, 0.4); }
+
+</style>
+</head>
+<body>
+
+<button class="fixed-back-btn" id="fixedBack" onclick="backToMenu()">↩️</button>
+
+<div class="main-container">
+  
+  <!-- টপ অ্যাডস -->
+  <div class="ad-container">
+    <div class="ad-unit">
+        <script type="text/javascript">atOptions={'key':'b4163f90ac591880afe2eb689a0972a3','format':'iframe','height':50,'width':320,'params':{}};</script>
+        <script src="https://www.highperformanceformat.com/b4163f90ac591880afe2eb689a0972a3/invoke.js"></script>
+    </div>
+    <div class="ad-unit">
+        <script type="text/javascript">atOptions={'key':'b4163f90ac591880afe2eb689a0972a3','format':'iframe','height':50,'width':320,'params':{}};</script>
+        <script src="https://www.highperformanceformat.com/b4163f90ac591880afe2eb689a0972a3/invoke.js"></script>
+    </div>
+  </div>
+
+  <div id="homeUI">
+    <h1 style="color:var(--primary); margin: 20px 0 5px 0; font-size: 26px;">Visit Fast <br>Bangla Viral Video</h1>
+    <p style="opacity: 0.6; margin-bottom: 30px;">The Best Viral Video  Collection Apps </p>
+
+    <div class="button-grid">
+      <div class="tab-btn" onclick="openTab('bus-skins')"><span style="font-size: 35px;">⏯️</span><br>999+ Video </div>
+      <div class="tab-btn" onclick="openTab('map-mods')"><span style="font-size: 35px;">🎦</span><br>Unlimited Video</div>
+      <div class="tab-btn" onclick="openTab('rules')"><span style="font-size: 35px;">📜</span><br>নিয়মাবলী</div>
+      <a href="https://www.effectivegatecpm.com/adkccf8mm?key=5ff76540ce0a0bc3a9dd42d79309fa8e" target="_blank" class="tab-btn" style="background: linear-gradient(135deg, #ff4757, #ff6b81); color: white;"><span style="font-size: 35px;">🎬</span><br>কি ভাবে ভিডিও দেখবেন </a>
+    </div>
+  </div>
+
+  <!-- বাসের স্কিন সেকশন -->
+  <div id="bus-skins" class="section">
+    <input type="text" id="skinSearch" class="search-input" placeholder="সার্চ দিন..." onkeyup="searchSkins()">
+    <div id="skinList">
+      <div class="item-card skin-item">
+          <span class="id-tag">ID: 101</span>
+          <img src="https://i.postimg.cc/xdHM5SjB/IMG-20260411-203423-118.jpg" class="item-img">
+          <h3>আরোহী মিমের ভিডিও </h3>
+          <button id="dl-101" class="download-btn" onclick="handleUnlock('101', 'https://www.mediafire.com/file/4bhv4duaq88ooki/Arohi_mim.zip/file')">এ্যাড দেখে আনলক করুন</button>
+      </div>
+      <div class="item-card skin-item">
+          <span class="id-tag">ID: 102</span>
+          <img src="https://i.postimg.cc/2jvj589S/4870-768x525.webp" class="item-img">
+          <h3>uno aladdin video<br>হাতিয়ায় ইউনিয়ন চেয়ারম্যান এর ভিডিও </h3>
+          <button id="dl-102" class="download-btn" onclick="handleUnlock('102', 'https://www.mediafire.com/file/6yofzp0vo2xju0i/%25E0%25A6%25B9%25E0%25A6%25BE%25E0%25A6%25A4%25E0%25A6%25BF%25E0%25A6%25AF%25E0%25A6%25BC%25E0%25A6%25BE%25E0%25A6%25AF%25E0%25A6%25BC_%25E0%25A6%2587%25E0%25A6%2589%25E0%25A6%25A8%25E0%25A6%25BF%25E0%25A6%25AF%25E0%25A6%25BC%25E0%25A6%25A8_%25E0%25A6%259A%25E0%25A7%2587%25E0%25A6%25AF%25E0%25A6%25BC%25E0%25A6%25BE%25E0%25A6%25B0%25E0%25A6%25AE%25E0%25A7%258D%25E0%25A6%25AF%25E0%25A6%25BE%25E0%25A6%25A8_%25E0%25A6%258F%25E0%25A6%25B0_.zip/file')">এ্যাড দেখে আনলক করুন</button>
+      </div>
+      <div class="item-card skin-item">
+          <span class="id-tag">ID: 103</span>
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhLgVMciUeLQamc_ym4bHmWEmd2YEa029VLJ-cLmxXTWMcj87mntOiHup9cWWM-rKnebrkTALKwX7HZZA3rF-PLYMsC3pJl4F2qyEN1QH5RBFSDZDZwl4eJjjJ6uXwhpDIrkVBI7-kyXR6M-Aj2Kfa1iR4DAuX1k1XFloCMhWojIeRXjYCsjjg8MHzt4Q/s640/IMG_20260412_020723.jpg" class="item-img">
+          <h3>viqarunnisa girl<br>viqarunnisa girl কলেজ ছাত্রী  </h3>
+          <button id="dl-103" class="download-btn" onclick="handleUnlock('103', 'https://bdbusloveratikv1webdev.blogspot.com/2026/04/viqarunnisa-girl.html')">এ্যাড দেখে আনলক করুন</button>
+      </div>
+      <div class="item-card skin-item">
+          <span class="id-tag">ID: 104</span>
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEianhcNnAL2URqErwlBnQPYAdwSvDgRIecBYgZ3vkgfOV4vV_ALbuKcF3R5DMcJ3rH8VMieq52k5FLhliw0MTzwigzA0ispXPNrLcnaaINH0pf5ee9s73tjQoSTyEWBCSaLAKek0rLYwFRKoaVKh5MFwlhZtR923v4smLAi98nXj8w5kp7IXzLQ8hLKHw/s320/FB_IMG_1775938924257.jpg" class="item-img">
+          <h3>Aurora আপু ভাইরাল ভিডিও <br>Aurora আপু ভাইরাল ভিডিও কক্সবাজার গিয়ে আপু কট</h3>
+          <button id="dl-104" class="download-btn" onclick="handleUnlock('104', 'https://bdbusloveratikv1webdev.blogspot.com/2026/04/aurora.html')">এ্যাড দেখে আনলক করুন</button>
+      </div>
+    <div class="ad-unit">
+        <script type="text/javascript">atOptions={'key':'b4163f90ac591880afe2eb689a0972a3','format':'iframe','height':50,'width':320,'params':{}};</script>
+        <script src="https://www.highperformanceformat.com/b4163f90ac591880afe2eb689a0972a3/invoke.js"></script>
+    </div>
+      <div class="item-card skin-item">
+          <span class="id-tag">ID: 105</span>
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg-kGdNTbzwTU_kaIvXHWjMAQTgHaai-082nWRKcAbw4fysR9DOZeyYEw4oh_3nQ0dJRgIqaM5WOnoPC38mvv7qhJa30jXjIJaYk9-bOAAkPip4JNgPEiNNGKEXOVD7PT5CwDLzGEj-dnmUJrb28u8VywmLhIV9qahxq-mA_BDBo3otQl-UuWlWq8-Oaw/s906/Screenshot_2026_0415_013459.png" class="item-img">
+          <h3>অভিনেত্রী কেয়া পায়েল<br>অভিনেত্রী কেয়া পায়েল ভাইরাল ভিডিও</h3>
+          <button id="dl-105" class="download-btn" onclick="handleUnlock('105', 'https://bdbusloveratikv1webdev.blogspot.com/2026/04/blog-post_14.html')">এ্যাড দেখে আনলক করুন</button>
+      </div>
+    <div class="ad-unit">
+        <script type="text/javascript">atOptions={'key':'b4163f90ac591880afe2eb689a0972a3','format':'iframe','height':50,'width':320,'params':{}};</script>
+        <script src="https://www.highperformanceformat.com/b4163f90ac591880afe2eb689a0972a3/invoke.js"></script>
+    </div>
+      <div class="item-card skin-item">
+          <span class="id-tag">ID: 106</span>
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgXfYq2T2s_XNZYqMSVuyCtnsGBPhyOXFhgV7RPLngw8C1WVVkNluphx8DLEUYz7SQClsGKTnoRjfhDiB4qHVsrw6iMUvV0Y8_4qRDbFd_RcQ3FCYla5pTfny33RbX3YEXFmhnoMfJEd-WHKqLVWJ2WavresYS0gEVvTh1XN1JALmBElacEP_siegYssA/s320/Screenshot_2026_0415_013542.png" class="item-img">
+          <h3>অভিনেত্রী মেহেজাবিন<br>অভিনেত্রী মেহেজাবিন ভাইরাল ভিডিও</h3>
+          <button id="dl-106" class="download-btn" onclick="handleUnlock('106', 'https://bdbusloveratikv1webdev.blogspot.com/2026/04/blog-post_68.html')">এ্যাড দেখে আনলক করুন</button>
+      </div>
+    <div class="ad-unit">
+        <script type="text/javascript">atOptions={'key':'b4163f90ac591880afe2eb689a0972a3','format':'iframe','height':50,'width':320,'params':{}};</script>
+        <script src="https://www.highperformanceformat.com/b4163f90ac591880afe2eb689a0972a3/invoke.js"></script>
+    </div>
+      <div class="item-card skin-item">
+          <span class="id-tag">ID: 107</span>
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhAuFwhBps4H_2RSWUH8_fqNMXWVgzZSbx3kks1x7hH4a71x6gvDpqo9bj5gA1ut6KkX36BEIvyYbv9KM6BmAxlEIlu_G3-CDaXWX5dLL64URnyJdKyTbONCnNzdxg8N3FyPCYISzTgMpw_Yv52fxmp3qioyot4haXOE9xzvtSK84Ay5s40tVm2fKNl4g/s320/IMG_20260413_234727.png" class="item-img">
+          <h3>ভাই বোনের অস্থির চোদা চুদি<br>আপন‌ ভাই বোনের চুদা চুদি না দেখলে মিস করবেন </h3>
+          <button id="dl-107" class="download-btn" onclick="handleUnlock('107', 'https://bdbusloveratikv1webdev.blogspot.com/2026/04/blog-post_43.html')">এ্যাড দেখে আনলক করুন</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ম্যাপ সেকশন -->
+  <div id="map-mods" class="section">
+    <div class="item-card">
+        <h3>আনলিমিটেড ফ্রি ভিডিও দেখতে নিচের  বাটনে ক্লিক করুন </h3>
+        <button id="dl-map1" class="download-btn" onclick="handleUnlock('map1', 'https://www.xv-videos1.com/')">Enter </button>
+    </div>
+  </div>
+
+  <!-- রুলস সেকশন -->
+  <div id="rules" class="section">
+    <div class="item-card">
+        <h2 style="color:var(--primary); text-align:center;">📜 নিয়মাবলী</h2>
+        <p>১. ডাউনলোড বাটনে ক্লিক করলে একটি বিজ্ঞাপন আসবে।<br>২. সেটি দেখে ব্যাক বাটন চেপে আবার অ্যাপে ফিরে আসুন।<br>৩. এবার বাটনটি "visit fast ⏩" মোডে চলে আসবে। ক্লিক করলেই ফাইল পাবেন।<br>৪. কিভাবে ভিডিও দেখতে পারবেন সেই ভিডিও লিংক হোম পেজে দেওয়া আছে ফুল ভিডিও দেখলে বুঝতে পারবেন<br>৫. আপনি ভিডিও দেখার সময় দেখতে পারবেন একটা 🆔 নাম্বার দেওয়া আছে দ্বিতীয় বার ভিডিও খোঁজে না পেলে সেই আইডি নাম্বার দিয়ে সার্জ করলে ভিডিও টি খোঁজে পাবেন   </p>
+    </div>
+  </div>
+
+  <!-- বটম অ্যাডস -->
+  <div class="ad-container">
+    <div class="ad-unit">
+        <script type="text/javascript">atOptions={'key':'b4163f90ac591880afe2eb689a0972a3','format':'iframe','height':50,'width':320,'params':{}};</script>
+        <script src="https://www.highperformanceformat.com/b4163f90ac591880afe2eb689a0972a3/invoke.js"></script>
+    </div>
+    <div class="ad-unit">
+        <script type="text/javascript">atOptions={'key':'b4163f90ac591880afe2eb689a0972a3','format':'iframe','height':50,'width':320,'params':{}};</script>
+        <script src="https://www.highperformanceformat.com/b4163f90ac591880afe2eb689a0972a3/invoke.js"></script>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// পেজ স্ট্যাটাস রিকোভারি
+window.onload = function() {
+    const activeTab = sessionStorage.getItem('activeTab');
+    if (activeTab && activeTab !== 'homeUI') {
+        openTab(activeTab);
+    }
+    
+    // আনলক হয়ে থাকা বাটনগুলো চেক করা
+    document.querySelectorAll('.download-btn').forEach(btn => {
+        const id = btn.id.replace('dl-', '');
+        if (localStorage.getItem('isUnlocked_' + id)) {
+            btn.innerText = "Visit fast ⏩";
+            btn.classList.add('unlocked');
+        }
+    });
+};
+
+function handleUnlock(id, downloadLink) {
+    const btn = document.getElementById('dl-' + id);
+    const adLink = "https://www.effectivegatecpm.com/adkccf8mm?key=5ff76540ce0a0bc3a9dd42d79309fa8e";
+
+    // যদি বাটনটি ইতিমধ্যে আনলক হয়ে থাকে
+    if (btn.classList.contains('unlocked')) {
+        window.open(downloadLink, "_blank");
+    } else {
+        // বিজ্ঞাপন ওপেন করা
+        window.open(adLink, "_blank");
+        
+        // বাটন আপডেট এবং লোকাল স্টোরেজে সেভ করা যাতে ব্যাক করলে বাটন বদলে যায়
+        localStorage.setItem('isUnlocked_' + id, 'true');
+        btn.innerText = "Visit fast ⏩";
+        btn.classList.add('unlocked');
+        
+        alert("বিজ্ঞাপন ওপেন হয়েছে। এটি দেখে ব্যাক করে ফিরে এসে বাটনে আবার ক্লিক করুন।");
+    }
+}
+
+function openTab(tabId) {
+  sessionStorage.setItem('activeTab', tabId);
+  document.getElementById('homeUI').style.display = 'none';
+  document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+  document.getElementById(tabId).style.display = 'block';
+  document.getElementById('fixedBack').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function backToMenu() {
+  sessionStorage.setItem('activeTab', 'homeUI');
+  document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+  document.getElementById('homeUI').style.display = 'block';
+  document.getElementById('fixedBack').style.display = 'none';
+}
+
+function searchSkins() {
+  let input = document.getElementById('skinSearch').value.toLowerCase();
+  let items = document.getElementsByClassName('skin-item');
+  for (let i = 0; i < items.length; i++) {
+    let content = items[i].innerText.toLowerCase();
+    items[i].style.display = content.includes(input) ? "block" : "none";
+  }
+}
+</script>
+
+</body>
+</html>
