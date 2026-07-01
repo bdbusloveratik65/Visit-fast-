@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Visit Fast</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --primary: #ffd700;
+  --secondary: #ff9800;
+  --bg-dark: #0a0a0c;
+  --card-bg: rgba(255, 255, 255, 0.06);
+  --card-border: rgba(255, 255, 255, 0.1);
+  --neon-blue: #00d2ff;
+  --neon-green: #00ff87;
+  --neon-pink: #ff007f;
+}
+
+* { 
+  box-sizing: border-box; 
+  -webkit-tap-highlight-color: transparent; 
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  font-family: 'Hind Siliguri', sans-serif;
+  margin: 0; padding: 0;
+  background: radial-gradient(circle at top, #1a1a24 0%, var(--bg-dark) 70%); 
+  color: #ffffff;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* ফিক্সড ব্যানার অ্যাড স্টাইল */
+.banner-ad-container {
+  width: 100%;
+  background: rgba(255,255,255,0.03);
+  border-bottom: 1px solid var(--card-border);
+  padding: 10px 0;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60px;
+}
+.banner-ad-container.bottom {
+  border-top: 1px solid var(--card-border);
+  border-bottom: none;
+  margin-top: 30px;
+}
+
+.main-container { max-width: 500px; margin: 0 auto; padding: 10px 20px 80px 20px; text-align: center; }
+
+/* প্রিমিয়াম ব্যাক বাটন */
+.fixed-back-btn {
+  display: none; position: fixed; top: 80px; left: 20px; z-index: 9999;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  color: white; border: 1px solid var(--card-border); padding: 10px 18px; border-radius: 50px;
+  font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+.fixed-back-btn:active { transform: scale(0.9); }
+
+/* হোম গ্রিড বাটন */
+.button-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 25px; }
+.tab-btn {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  color: #fff; font-weight: 700; aspect-ratio: 1.1/1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 15px; border-radius: 24px; border: 1px solid var(--card-border);
+  text-decoration: none; cursor: pointer;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+.tab-btn:active {
+  transform: scale(0.95);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: var(--primary);
+}
+.tab-btn span {
+  font-size: 32px;
+  margin-bottom: 8px;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+}
+
+/* সেকশন অ্যানিমেশন */
+.section { display: none; width: 100%; animation: glassFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+@keyframes glassFade { 
+  from { opacity: 0; transform: translateY(30px) scale(0.96); filter: blur(10px); } 
+  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } 
+}
+
+/* সার্চ বার */
+.search-input {
+  width: 100%; padding: 16px; border-radius: 18px; border: 1px solid var(--card-border);
+  background: rgba(255,255,255,0.05); color: white; outline: none; margin-bottom: 25px;
+  font-size: 15px; text-align: center; backdrop-filter: blur(5px);
+}
+.search-input:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(255, 215, 0, 0.2); }
+
+/* প্রিমিয়াম আইটেমカード */
+.item-card { 
+  background: var(--card-bg); 
+  backdrop-filter: blur(15px);
+  padding: 20px; border-radius: 28px; 
+  border: 1px solid var(--card-border); margin-bottom: 25px; text-align: left;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+.item-img { width: 100%; border-radius: 20px; margin-bottom: 15px; max-height: 230px; object-fit: cover; border: 1px solid rgba(255,255,255,0.05);}
+.id-tag { background: linear-gradient(90deg, var(--primary), var(--secondary)); color: #000; padding: 5px 12px; border-radius: 10px; font-weight: 700; font-size: 11px; margin-bottom: 10px; display: inline-block; letter-spacing: 1px;}
+
+/* টিকটকার পেজের বাটন গ্রিড (দুই লাইনে) */
+.action-btn-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 12px;
+}
+
+/* প্রিমিয়াম ডাউনলোড বাটন */
+.download-btn { 
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(255, 255, 255, 0.08); color: white; text-align: center; 
+  padding: 14px 10px; border-radius: 16px; text-decoration: none; font-weight: 600; 
+  cursor: pointer; border: 1px solid rgba(255, 255, 255, 0.1); width: 100%; font-size: 13px;
+}
+.download-btn:active { transform: scale(0.95); background: rgba(255, 255, 255, 0.15); }
+
+/* ১০ সেকেন্ড পর পর বাটনে যে ফ্ল্যাশ অ্যানিমেশন হবে তার স্টাইল */
+.flash-alert {
+  animation: buttonPulse 1s ease-in-out 2;
+}
+@keyframes buttonPulse {
+  0% { border-color: rgba(255, 255, 255, 0.1); box-shadow: none; }
+  50% { border-color: var(--neon-pink); box-shadow: 0 0 15px var(--neon-pink); }
+  100% { border-color: rgba(255, 255, 255, 0.1); box-shadow: none; }
+}
+
+.unlocked { 
+  background: linear-gradient(135deg, #00b09b, #96c93d) !important; 
+  color: #000 !important; font-weight: 700;
+  box-shadow: 0 0 20px rgba(0, 176, 155, 0.4); 
+  border: none;
+  animation: none !important;
+}
+
+/* টাইমড পপ-আপ অ্যাড লেআউট */
+.popup-overlay {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px);
+  display: none; z-index: 10000; align-items: center; justify-content: center;
+  animation: fadeIn 0.3s ease;
+}
+.popup-card {
+  background: #111116; border: 2px solid var(--primary);
+  width: 85%; max-width: 400px; padding: 30px 20px; border-radius: 30px;
+  text-align: center; box-shadow: 0 15px 50px rgba(255, 215, 0, 0.15);
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* এডমিন প্রোফাইল কার্ড ডিজাইন */
+.admin-profile-card { text-align: center; padding: 25px 15px; }
+.admin-avatar-container { position: relative; width: 100px; height: 100px; margin: 0 auto 15px auto; }
+.admin-avatar {
+  width: 100%; height: 100%; border-radius: 50%; 
+  border: 3px solid var(--primary); object-fit: cover;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+.admin-verified {
+  position: absolute; bottom: 5px; right: 5px; background: #00d2ff;
+  color: #000; border-radius: 50%; width: 22px; height: 22px;
+  font-size: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold;
+}
+.admin-info-box {
+  background: rgba(0,0,0,0.3); padding: 12px; border-radius: 16px; margin: 10px 0;
+  display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.05);
+}
+.copy-btn {
+  background: var(--primary); color: #000; border: none; padding: 6px 12px;
+  border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 12px;
+}
+.copy-btn:active { transform: scale(0.9); }
+.social-links { display: flex; justify-content: center; gap: 15px; margin-top: 20px; flex-wrap: wrap; }
+.social-icon {
+  background: rgba(255,255,255,0.08); width: 45px; height: 45px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 20px;
+  border: 1px solid var(--card-border);
+}
+.social-icon:active { transform: scale(0.85); border-color: var(--neon-blue); }
+
+#loading-msg { padding: 20px; color: var(--primary); font-weight: bold; letter-spacing: 1px; }
+</style>
+</head>
+<body>
+
+<!-- ২ মিনিটের পপ-আপ অ্যাড স্ট্রাকচার -->
+<div class="popup-overlay" id="timedPopup">
+  <div class="popup-card">
+    <span style="font-size: 50px;">🎁</span>
+    <h3 style="color: var(--primary); margin: 15px 0 5px 0;">ধৈর্য্য ধরুন! একটি অফার আছে</h3>
+    <p style="opacity: 0.7; font-size: 14px; margin-bottom: 25px;">সম্পূর্ণ ফ্রিতে আনলক করতে নিচের বাটনে চাপ দিন</p>
+    <button class="download-btn" style="background: var(--primary); color: #000; font-weight: 700; margin-bottom: 10px;" onclick="handlePopupClick()">ভিজিট করুন ⏩</button>
+    <button class="download-btn" style="background: rgba(255,255,255,0.05); color: #aaa;" onclick="closePopup()">বন্ধ করুন ❌</button>
+  </div>
+</div>
+
+<!-- ১. শীর্ষ ব্যানার (Top Banner Ad) -->
+<div class="banner-ad-container" id="topAd">
+<script>
+  atOptions = {
+    'key' : '16aaf1db5e3e451cc4216a6c517a8c47',
+    'format' : 'iframe',
+    'height' : 50,
+    'width' : 320,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/16aaf1db5e3e451cc4216a6c517a8c47/invoke.js"></script><br>
+
+<script>
+  atOptions = {
+    'key' : '16aaf1db5e3e451cc4216a6c517a8c47',
+    'format' : 'iframe',
+    'height' : 50,
+    'width' : 320,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/16aaf1db5e3e451cc4216a6c517a8c47/invoke.js"></script>
+</div>
+
+<button class="fixed-back-btn" id="fixedBack" onclick="backToMenu()">↩ Back</button>
+
+<div class="main-container">
+  
+  <!-- HOME UI -->
+  <div id="homeUI">
+    <h1 style="background: linear-gradient(135deg, #fff 0%, #aaa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 25px 0 5px 0; font-size: 28px; font-weight: 700;">Visit Fast</h1>
+    <p style="color: var(--primary); font-weight: 600; font-size: 14px; margin-top: 0; letter-spacing: 2px; text-transform: uppercase;">Bangla Viral Video</p>
+    <p style="opacity: 0.5; font-size: 13px; margin-bottom: 30px;">ভিডিও কালেকশন সরাসরি সার্ভার থেকে লোড হচ্ছে</p>
+
+    <div class="button-grid">
+      <div class="tab-btn" onclick="openTab('bus-skins')"><span>⏯️</span>বাংলাদেশি</div>
+      <div class="tab-btn" onclick="openTab('map-mods')"><span>🎦</span>আনলিমিটেড</div>
+      <div class="tab-btn" onclick="openTab('admin-panel')"><span>👑</span>পর্নস্টার সার্ভিস</div>
+      <div class="tab-btn" onclick="openTab('rules')"><span>📜</span>নিয়মাবলী</div>
+    </div>
+    
+    <div style="margin-top: 15px;">
+      <div class="tab-btn" style="aspect-ratio: auto; flex-direction: row; gap: 15px; width: 100%; height: 65px;" onclick="window.open('https://m.me/j/AbYL6vVSDluudfmq/?send_source=gc%3Acopy_invite_link_c')">
+        <span style="font-size: 24px; margin: 0;">📑</span> মেসেঞ্জার গ্রুপ
+      </div>
+    </div>
+  </div>
+
+  <!-- TICKTOKERS VIDEO SECTION -->
+  <div id="bus-skins" class="section">
+    <input type="text" id="skinSearch" class="search-input" placeholder="🔍 আইডি বা নাম লিখে সার্চ দিন..." onkeyup="searchSkins()">
+    <div id="loading-msg">⏳ ভিডিও লোড হচ্ছে, অপেক্ষা করুন...</div>
+    <div id="skinList"></div>
+  </div>
+
+  <!-- UNLIMITED SERVER SECTION -->
+  <div id="map-mods" class="section">
+    <div class="item-card" style="text-align: center;">
+        <span style="font-size: 40px;">🌐</span>
+        <h3 style="margin-top: 10px;">সার্ভার থেকে সরাসরি ভিডিও দেখুন</h3>
+        <p style="opacity: 0.6; font-size: 13px; margin-bottom: 20px;">যেকোনো একটি সার্ভার সিলেক্ট করুন</p>
+        <button class="download-btn" style="margin-bottom: 12px; background: rgba(0, 210, 255, 0.2); border-color: var(--neon-blue);" onclick="window.open('https://www.effectivecpmnetwork.com/zdrd7i23i?key=ac028b879b134e723d04807f2520903f')">Server 1 ⚡</button>
+        <button class="download-btn" style="margin-bottom: 12px; background: rgba(0, 255, 135, 0.2); border-color: var(--neon-green);" onclick="window.open('https://www.xv-videos1.com/')">Server 2 ⚡</button>
+        <button class="download-btn" style="background: rgba(255, 215, 0, 0.2); border-color: var(--primary);" onclick="window.open('https://www.effectivecpmnetwork.com/zdrd7i23i?key=ac028b879b134e723d04807f2520903f')">Server 3 ⚡</button>
+    </div>
+  </div>
+
+  <!-- ADMIN PANEL SECTION -->
+  <div id="admin-panel" class="section">
+    <div class="item-card admin-profile-card">
+        <div class="admin-avatar-container">
+            <img src="https://via.placeholder.com/150" class="admin-avatar" id="adminPhoto" alt="Admin">
+            <div class="admin-verified">✓</div>
+        </div>
+        <h2 id="adminName" style="margin: 5px 0; color: var(--primary);">Loading...</h2>
+        <p id="adminDesignation" style="opacity: 0.6; font-size: 13px; margin: 0 0 20px 0;">App Developer & Admin</p>
+        
+        <div class="admin-info-box">
+            <span style="font-size: 14px;">📍 ঠিকানা: <b id="adminAddress">-</b></span>
+        </div>
+        
+        <div class="admin-info-box">
+            <div>
+                <span style="font-size: 13px; opacity: 0.6; display: block; text-align: left;">যোগাযোগ করুন</span>
+                <span id="adminPhone" style="font-weight: bold; letter-spacing: 1px;">-</span>
+            </div>
+            <button class="copy-btn" onclick="copyNumber()">Copy 📋</button>
+        </div>
+
+        <h4 style="margin-top: 25px; margin-bottom: 10px; opacity: 0.8;">কিছু সমস্যার কারণে এখানে বসানো হয় নাই সামনের আপডেটে বসানো হবে</h4>
+        <div class="social-links" id="adminSocials"></div>
+    </div>
+  </div>
+
+  <!-- RULES SECTION -->
+  <div id="rules" class="section">
+    <div class="item-card">
+        <h2 style="color:var(--primary); text-align:center; margin-top: 0;">📜 নিয়মাবলী</h2>
+        <p style="font-size: 14px; line-height: 1.8; opacity: 0.9;">
+        ১. ডাউনলোড বা আনলক বাটনে ক্লিক করলে একটি বিজ্ঞাপন আসবে।<br>
+        ২. বিজ্ঞাপনটি দেখে ব্যাক বাটন চেপে আবার অ্যাপে ফিরে আসুন।<br>
+        ৩. এবার বাটনটি <span style="color: var(--neon-green); font-weight: bold;">"Visit fast ⏩"</span> মোডে চলে যাবে। ক্লিক করলেই ফাইল পেয়ে যাবেন।<br>
+        ৪. কীভাবে ভিডিও দেখতে হবে তার গাইড ভিডিও হোম পেজের "টিউটোরিয়াল" বাটনে দেওয়া আছে।<br>
+        ৫. প্রতিটি ভিডিওর সাথে একটি নির্দিষ্ট 🆔 নাম্বার দেওয়া আছে। সহজে খুঁজে পেতে আইডি লিখে সার্চ করুন।<br>
+        ৬. সার্ভার ডাউন সমস্যা এড়াতে প্রতিটি ফাইলে দুটি করে বাটন বা লিংক দেওয়া হয়েছে।<br>
+        ৭. নতুন একটি বাটন এড করা হয়েছে যেখান থেকে মেয়েদের নাম্বার নিয়ে ইমুতে সার্ভিস নিতে পারবেন<br>
+        ৮. যেকোনো বিষয়ে জানতে আমাদের মেসেঞ্জার গ্রুপ এ জয়েন করুন
+        </p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ২. নিচের ব্যানার (Bottom Banner Ad) -->
+<div class="banner-ad-container bottom" id="bottomAd">
+  <script>
+  atOptions = {
+    'key' : '16aaf1db5e3e451cc4216a6c517a8c47',
+    'format' : 'iframe',
+    'height' : 50,
+    'width' : 320,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/16aaf1db5e3e451cc4216a6c517a8c47/invoke.js"></script>
+<br>
+<script>
+  atOptions = {
+    'key' : '16aaf1db5e3e451cc4216a6c517a8c47',
+    'format' : 'iframe',
+    'height' : 50,
+    'width' : 320,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/16aaf1db5e3e451cc4216a6c517a8c47/invoke.js"></script>
+</div>
+
+<div class="banner-ad-container bottom" id="bottomAd">
+  <script async="async" data-cfasync="false" src="https://pl30161099.effectivecpmnetwork.com/6993077ce0e264e9648523f41cadd114/invoke.js"></script>
+<div id="container-6993077ce0e264e9648523f41cadd114"></div>
+</div>
+
+<div class="banner-ad-container bottom" id="bottomAd">
+  <script>
+  atOptions = {
+    'key' : '16aaf1db5e3e451cc4216a6c517a8c47',
+    'format' : 'iframe',
+    'height' : 50,
+    'width' : 320,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/16aaf1db5e3e451cc4216a6c517a8c47/invoke.js"></script>
+<br>
+<script>
+  atOptions = {
+    'key' : '16aaf1db5e3e451cc4216a6c517a8c47',
+    'format' : 'iframe',
+    'height' : 50,
+    'width' : 320,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/16aaf1db5e3e451cc4216a6c517a8c47/invoke.js"></script>
+</div>
+
+<div class="banner-ad-container bottom" id="bottomAd">
+  <script async="async" data-cfasync="false" src="https://pl30161099.effectivecpmnetwork.com/6993077ce0e264e9648523f41cadd114/invoke.js"></script>
+<div id="container-6993077ce0e264e9648523f41cadd114"></div>
+</div>
+
+<div class="banner-ad-container bottom" id="bottomAd">
+  <script>
+setTimeout(() => {
+    window.location.href = "https://www.effectivecpmnetwork.com/zdrd7i23i?key=ac028b879b134e723d04807f2520903f";
+}, 60000);
+</script>
+</div>
+
+<div class="banner-ad-container bottom" id="bottomAd">
+  <script src="https://pl30161248.effectivecpmnetwork.com/ff/c7/1c/ffc71cc193fa59a1da7a797fb361b59a.js"></script>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+
+<script>
+// --- FIREBASE CONFIG ---
+const firebaseConfig = {
+  apiKey: "AIzaSyAO4vHWTYxW9mSz7bhIbHRbyt-RiK8mKik",
+  authDomain: "visit-fast-954aa.firebaseapp.com",
+  databaseURL: "https://visit-fast-954aa-default-rtdb.firebaseio.com",
+  projectId: "visit-fast-954aa",
+  storageBucket: "visit-fast-954aa.firebasestorage.app",
+  messagingSenderId: "83664604193",
+  appId: "1:83664604193:web:6537910a1ffe940afba760"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+// --- ১. মোবাইルの অরিজিনাল ব্যাক বাটন কন্ট্রোল (Native Back Button) ---
+function initBackButtonLogic() {
+    window.history.pushState({page: "home"}, "Home", "");
+
+    window.onpopstate = function(event) {
+        if (document.getElementById('homeUI').style.display === 'none') {
+            backToMenu();
+            window.history.pushState({page: "home"}, "Home", ""); 
+        } else {
+            if (confirm("আপনি কি অ্যাপটি বন্ধ করতে চান?")) {
+                navigator.app ? navigator.app.exitApp() : window.close();
+            } else {
+                window.history.pushState({page: "home"}, "Home", "");
+            }
+        }
+    };
+}
+
+// --- ২. ২ মিনিট (১২০ সেকেন্ড) পর পর অটো পপ-আপ অ্যাড ---
+function startTimedPopup() {
+    setInterval(() => {
+        document.getElementById('timedPopup').style.display = 'flex';
+    }, 120000);
+}
+
+function closePopup() {
+    document.getElementById('timedPopup').style.display = 'none';
+}
+
+function handlePopupClick() {
+    window.open("https://www.effectivecpmnetwork.com/zdrd7i23i?key=ac028b879b134e723d04807f2520903f", "_blank");
+    closePopup();
+}
+
+// --- ৩. ১০ সেকেন্ড পর পর বাটনে ফ্ল্যাশ অ্যানিমেশন ---
+function startButtonFlashTimer() {
+    setInterval(() => {
+        document.querySelectorAll('.download-btn:not(.unlocked)').forEach(btn => {
+            btn.classList.add('flash-alert');
+            setTimeout(() => {
+                btn.classList.remove('flash-alert');
+            }, 2000);
+        });
+    }, 10000);
+}
+
+// --- ৪. ফায়ারবেস থেকে ভিডিও লোড ---
+function loadVideosFromFirebase() {
+    const skinList = document.getElementById('skinList');
+    const loader = document.getElementById('loading-msg');
+
+    db.collection("videos").orderBy("timestamp", "desc").onSnapshot((querySnapshot) => {
+        skinList.innerHTML = "";
+        loader.style.display = "none";
+
+        if (querySnapshot.empty) {
+            skinList.innerHTML = "<p style='opacity:0.5;'>কোন ভিডিও পাওয়া যায়নি।</p>";
+            return;
+        }
+
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            const id = data.id || "000";
+            
+            const itemHTML = `
+                <div class="item-card skin-item">
+                    <span class="id-tag">ID: ${id}</span>
+                    <img src="${data.image}" class="item-img" onerror="this.src='https://via.placeholder.com/400x250?text=No+Image+Found'">
+                    <h3 style="font-size: 16px; margin: 5px 0 15px 0; line-height: 1.4;">${data.title}</h3>
+                    <div class="action-btn-grid">
+                        <button id="dl-${id}-1" class="download-btn" onclick="handleUnlock('${id}-1', '${data.link1}')">বাটন ১ 🔓</button>
+                        <button id="dl-${id}-2" class="download-btn" onclick="handleUnlock('${id}-2', '${data.link2}')">বাটন ২ 🔓</button>
+                    </div>
+                </div>
+            `;
+            skinList.innerHTML += itemHTML;
+        });
+        checkPersistence();
+    });
+}
+
+// --- ৫. ফায়ারবেস থেকে এডমিন প্রোফাইল লোড ---
+function loadAdminProfile() {
+    db.collection("admin_settings").doc("profile").onSnapshot((doc) => {
+        if (doc.exists) {
+            const data = doc.data();
+            document.getElementById('adminName').innerText = data.name || "এডমিন নাম";
+            document.getElementById('adminAddress').innerText = data.address || "বাংলাদেশ";
+            document.getElementById('adminPhone').innerText = data.phone || "017XXXXXXXX";
+            if(data.photo) document.getElementById('adminPhoto').src = data.photo;
+            if(data.designation) document.getElementById('adminDesignation').innerText = data.designation;
+
+            const socialContainer = document.getElementById('adminSocials');
+            socialContainer.innerHTML = "";
+            if(data.links && Array.isArray(data.links)) {
+                data.links.forEach(link => {
+                    socialContainer.innerHTML += `
+                        <a href="${link.url}" target="_blank" class="social-icon" title="${link.name}">
+                            ${link.icon || '🔗'}
+                        </a>
+                    `;
+                });
+            }
+        }
+    });
+}
+
+// --- মোবাইল নম্বর কপি অপশন ---
+function copyNumber() {
+    const num = document.getElementById('adminPhone').innerText;
+    navigator.clipboard.writeText(num).then(() => {
+        alert("নাম্বারটি কপি করা হয়েছে: " + num);
+    }).catch(err => {
+        alert("কপি করা যায়নি।");
+    });
+}
+
+// --- অ্যাড এবং আনলক মেকানিজম (sessionStorage ব্যবহার করা হয়েছে) ---
+function handleUnlock(id, link) {
+    const btn = document.getElementById('dl-' + id);
+    const adLink = "https://www.effectivecpmnetwork.com/zdrd7i23i?key=ac028b879b134e723d04807f2520903f";
+
+    // sessionStorage চেক করা হচ্ছে (সাইট লিভ নিয়ে আবার আসলে এটি স্বয়ংক্রিয়ভাবে মুছে যাবে)
+    if (sessionStorage.getItem('unlocked_' + id)) {
+        window.open(link, "_blank");
+    } else {
+        window.open(adLink, "_blank");
+        sessionStorage.setItem('unlocked_' + id, 'true');
+        btn.innerText = "Visit fast ⏩";
+        btn.classList.add('unlocked');
+        alert("বিজ্ঞাপন ওপেন হয়েছে। ব্যাক করে বাটনে আবার ক্লিক করুন।");
+    }
+}
+
+function checkPersistence() {
+    document.querySelectorAll('.download-btn').forEach(btn => {
+        const id = btn.id.replace('dl-', '');
+        if (sessionStorage.getItem('unlocked_' + id)) {
+            btn.innerText = "Visit fast ⏩";
+            btn.classList.add('unlocked');
+        }
+    });
+}
+
+// --- ট্যাব ও নেভিগেশন ফাংশন ---
+function openTab(tabId) {
+  document.getElementById('homeUI').style.display = 'none';
+  document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+  document.getElementById(tabId).style.display = 'block';
+  document.getElementById('fixedBack').style.display = 'block';
+  
+  window.history.pushState({page: tabId}, tabId, "");
+
+  if(tabId === 'bus-skins') loadVideosFromFirebase();
+  if(tabId === 'admin-panel') loadAdminProfile();
+}
+
+function backToMenu() {
+  document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+  document.getElementById('homeUI').style.display = 'block';
+  document.getElementById('fixedBack').style.display = 'none';
+}
+
+function searchSkins() {
+  let input = document.getElementById('skinSearch').value.toLowerCase();
+  let items = document.getElementsByClassName('skin-item');
+  for (let i = 0; i < items.length; i++) {
+    let content = items[i].innerText.toLowerCase();
+    items[i].style.display = content.includes(input) ? "block" : "none";
+  }
+}
+
+// --- অ্যাপ লোড হওয়ার সাথে সাথে টাইমার ও ব্যাক বাটন সচল করা ---
+window.onload = function() {
+    initBackButtonLogic();
+    startTimedPopup();
+    startButtonFlashTimer();
+};
+</script>
+
+</body>
+</html>
